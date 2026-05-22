@@ -1,101 +1,107 @@
-import Image from "next/image";
+import type { Metadata } from 'next';
+import Link from 'next/link';
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'SailTripGuide — Find Your Boat Rental',
+  alternates: { canonical: 'https://sailtripguide.com' },
+};
+
+const platforms = [
+  {
+    id: 'getmyboat',
+    name: 'GetMyBoat',
+    tagline: "World's largest marketplace",
+    detail: '150,000+ boats · 184 countries · No booking fees',
+    badge: 'Most listings',
+    color: 'from-sky-500 to-cyan-400',
+    ring: 'ring-sky-400',
+  },
+  {
+    id: 'boatsetter',
+    name: 'Boatsetter',
+    tagline: 'Insurance on every rental',
+    detail: '$1M liability coverage · Vetted captains · US-focused',
+    badge: 'Safest choice',
+    color: 'from-teal-500 to-emerald-400',
+    ring: 'ring-teal-400',
+  },
+  {
+    id: 'boatbookings',
+    name: 'Boatbookings',
+    tagline: 'Mediterranean & luxury experts',
+    detail: '12,000+ yachts · Expert brokers · Europe-strong',
+    badge: 'Best for Europe',
+    color: 'from-indigo-500 to-blue-400',
+    ring: 'ring-indigo-400',
+  },
+];
+
+export default function HomePage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-navy">
+      {/* Hero */}
+      <section className="relative overflow-hidden px-4 pt-20 pb-16 text-center">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(14,165,233,0.15)_0%,_transparent_70%)]" />
+        <div className="relative max-w-3xl mx-auto">
+          <p className="text-teal-400 font-semibold text-xs tracking-widest uppercase mb-4">
+            Boat Rental Deals
+          </p>
+          <h1 className="text-3xl sm:text-5xl font-bold text-white leading-tight mb-5">
+            Find the Best Boat Rental<br className="hidden sm:block" /> for Your Trip
+          </h1>
+          <p className="text-white/60 text-lg max-w-xl mx-auto mb-10">
+            We link directly to the top booking platforms — pick the one that fits your trip and get the best available price.
+          </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          {/* Platform cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left mt-2">
+            {platforms.map((p) => (
+              <Link
+                key={p.id}
+                href={`/go/${p.id}`}
+                className={`group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:${p.ring} hover:ring-1 transition-all focus:outline-none focus:ring-2 focus:ring-teal-400`}
+              >
+                {/* Badge */}
+                <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gradient-to-r ${p.color} text-white mb-4`}>
+                  {p.badge}
+                </span>
+
+                <h2 className="text-white font-bold text-xl mb-1 group-hover:text-teal-300 transition-colors">
+                  {p.name}
+                </h2>
+                <p className="text-white/70 text-sm font-medium mb-2">{p.tagline}</p>
+                <p className="text-white/40 text-xs leading-relaxed mb-5">{p.detail}</p>
+
+                <span className={`inline-flex items-center gap-1.5 bg-gradient-to-r ${p.color} text-white text-sm font-semibold px-4 py-2 rounded-xl group-hover:opacity-90 transition-opacity`}>
+                  See deals →
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* How it works */}
+      <section className="border-t border-white/10 py-16 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-white/80 font-semibold text-sm uppercase tracking-widest mb-10">How it works</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {[
+              { n: '1', title: 'Pick a platform', desc: 'Choose the marketplace that fits your destination and budget.' },
+              { n: '2', title: 'We redirect you', desc: 'A quick bridge page confirms where you\'re going, then takes you straight there.' },
+              { n: '3', title: 'Book direct', desc: 'You book on the platform directly — no markup from us, ever.' },
+            ].map(({ n, title, desc }) => (
+              <div key={n} className="flex flex-col items-center">
+                <div className="w-10 h-10 rounded-full bg-teal-500/20 text-teal-400 font-bold flex items-center justify-center mb-3 text-sm">
+                  {n}
+                </div>
+                <h3 className="text-white font-semibold mb-1">{title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

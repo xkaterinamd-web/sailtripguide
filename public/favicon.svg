@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Sail left (main) -->
+  <path d="M15 4 L15 20 L4 20 Z" fill="#2dd4bf"/>
+  <!-- Sail right -->
+  <path d="M17 6 L17 20 L26 18 Z" fill="#5eead4"/>
+  <!-- Mast -->
+  <rect x="15" y="3" width="2" height="18" rx="1" fill="#0f172a"/>
+  <!-- Hull -->
+  <path d="M3 22 L6 27 L26 27 L29 22 Z" fill="#0f172a"/>
+  <!-- Hull highlight -->
+  <path d="M5 22 L7.5 26 L24.5 26 L27 22 Z" fill="#1e3a5f"/>
+  <!-- Water wave -->
+  <path d="M1 29 Q8 27 16 29 Q24 31 31 29" stroke="#2dd4bf" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>
