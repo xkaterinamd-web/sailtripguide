@@ -17,12 +17,13 @@ export function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { destination: string; platform: string };
+  params: Promise<{ destination: string; platform: string }>;
 }
 
-export function generateMetadata({ params }: PageProps) {
-  const dest = destinations.find(d => d.slug === params.destination);
-  const platformName = PLATFORM_NAMES[params.platform] ?? params.platform;
+export async function generateMetadata({ params }: PageProps) {
+  const { destination, platform } = await params;
+  const dest = destinations.find(d => d.slug === destination);
+  const platformName = PLATFORM_NAMES[platform] ?? platform;
   if (!dest) return {};
   return {
     title: `Boat Rentals in ${dest.city} — ${platformName}`,
@@ -30,13 +31,14 @@ export function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function Page({ params }: PageProps) {
-  const dest = destinations.find(d => d.slug === params.destination);
-  const platformName = PLATFORM_NAMES[params.platform];
+export default async function Page({ params }: PageProps) {
+  const { destination, platform } = await params;
+  const dest = destinations.find(d => d.slug === destination);
+  const platformName = PLATFORM_NAMES[platform];
 
   if (!dest || !platformName) notFound();
 
-  const affiliateUrl = buildAffiliateUrl(params.platform, dest.city, dest.country);
+  const affiliateUrl = buildAffiliateUrl(platform, dest.city, dest.country);
 
   return (
     <Suspense fallback={<div className="min-h-screen bg-navy" />}>
@@ -45,7 +47,7 @@ export default function Page({ params }: PageProps) {
         city={dest.city}
         country={dest.country}
         tagline={dest.tagline}
-        platform={params.platform}
+        platform={platform}
         platformName={platformName}
         affiliateUrl={affiliateUrl}
       />

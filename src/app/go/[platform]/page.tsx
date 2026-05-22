@@ -9,10 +9,11 @@ export function generateStaticParams() {
   ];
 }
 
-export default function Page({ params }: { params: { platform: string } }) {
+export default async function Page({ params }: { params: Promise<{ platform: string }> }) {
+  const { platform } = await params;
   return (
     <Suspense fallback={<div className="min-h-screen bg-navy" />}>
-      <RedirectPage platform={params.platform} />
+      <RedirectPage platform={platform} />
     </Suspense>
   );
 }
